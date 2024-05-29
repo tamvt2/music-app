@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Download extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'song_id',
+    ];
+
+    public $timestamps = false;
 }

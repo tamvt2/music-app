@@ -9,7 +9,6 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libonig-dev \
     libjpeg62-turbo-dev \
-    libfreetype6-dev \
     locales \
     zip \
     jpegoptim optipng pngquant gifsicle \
@@ -21,24 +20,29 @@ RUN apt-get update && apt-get install -y \
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
-
 # Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Install pdo_mysql extension
+RUN docker-php-ext-install pdo_mysql
 
 # Set working directory
 WORKDIR /var/www
 
-# Copy existing application directory contents
-COPY . .
+# Copy application source
+COPY . /var/www
 
-# Copy existing application directory permissions
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Install Composer dependencies
+RUN composer install --no-dev
 
-# Change current user to www
-USER www-data
+# Set permissions for storage and cache directories
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
-# Expose port 9000 and start php-fpm server
+# Set execute permission for artisan
+RUN chmod +x /var/www/artisan
+
+# Expose port 9000 for PHP-FPM
 EXPOSE 9000
+
+# Run PHP-FPM
 CMD ["php-fpm"]

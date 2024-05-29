@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('album')->nullable();
             $table->string('genre')->nullable();
             $table->string('path');
-            $table->timestamps();
         });
     }
 
