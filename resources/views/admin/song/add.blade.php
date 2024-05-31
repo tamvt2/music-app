@@ -29,10 +29,40 @@
                             <form class="user" method="post" action="{{ url('admin/song/add') }}">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="name" class="form-label ml-3">Tên Playlist</label>
+                                    <label for="name" class="form-label ml-3">Tên bài hát</label>
                                     <input type="text" class="form-control form-control-user"
                                         name="name"
-                                        placeholder="Nhập tên playlist">
+                                        placeholder="Nhập tên bài hát">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artist" class="form-label ml-3">Nghệ sĩ</label>
+                                    <input type="text" class="form-control form-control-user"
+                                        name="artist"
+                                        placeholder="Nhập nghệ sĩ">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label ml-3">Ảnh</label>
+                                    <input type="file" name="file" class="form-control mb-3" id="upload">
+                                    <div id="image_show"></div>
+                                    <input type="hidden" name="url_img" id="url_img">
+                                </div>
+                                <div class="form-group">
+                                    <label for="album" class="form-label ml-2">Album</label>
+                                    <input type="text" class="form-control form-control-user"
+                                        name="album"
+                                        placeholder="Nhập album">
+                                </div>
+                                <div class="form-group">
+                                    <label for="genre" class="form-label ml-3">Thể loại</label>
+                                    <input type="text" class="form-control form-control-user"
+                                        name="genre"
+                                        placeholder="Nhập thể loại">
+                                </div>
+                                <div class="form-group">
+                                    <label for="path" class="form-label ml-3">Đường dẫn đến file bài hát</label>
+                                    <input type="text" class="form-control form-control-user"
+                                        name="path"
+                                        placeholder="Nhập đường dẫn đến file bài hát">
                                 </div>
                                 <button class="btn btn-primary btn-user btn-block">
                                     Thêm

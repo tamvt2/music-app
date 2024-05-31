@@ -21,35 +21,47 @@
             <!-- Begin Page Content -->
             <div class="container">
 
-                <table class="table">
+                <table class="table table-fixed">
                     <thead>
                         <tr>
-                            <th style="width: 50px">ID</th>
-                            <th>Tên playlist</th>
-                            <th>Người dùng</th>
-                            <th style="width: 100px">&nbsp</th>
+                            <th class="w-5">ID</th>
+                            <th class="w-15">Tiêu đề bài hát</th>
+                            <th class="w-15">Nghệ sĩ</th>
+                            <th class="w-15">Img</th>
+                            <th class="w-15">Album</th>
+                            <th class="w-10">Thể loại</th>
+                            <th class="w-25">Đường dẫn đến file bài hát</th>
+                            <th class="w-7">&nbsp</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($values as $key => $value)
-                            <tr>
-                                <td>{{ $value->id }}</td>
-                                <td>{{ $value->name }}</td>
-                                <td>{{ $value->username }}</td>
-                                <td>
-                                    <a type="button" class="btn btn-warning btn-sm mb-1" href="/admin/song/edit/{{ $value->id }}">
-                                        Sửa
-                                    </a>
-                                    <a class="btn btn-danger btn-sm removeRow" data-id="{{ $value->id }}" data-url="/admin/song/destroy" href="">
-                                        Xóa
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
+                        @if (isset($values) && !empty($values))
+                            @foreach($values as $key => $value)
+                                <tr>
+                                    <td>{{ $value->id }}</td>
+                                    <td>{{ $value->name }}</td>
+                                    <td>{{ $value->artist }}</td>
+                                    <td><img src="{{ $value->url_img }}" 	class="menu-img" alt="" style="width: 40%; height: 60px"></td>
+                                    <td>{{ $value->album }}</td>
+                                    <td>{{ $value->genre }}</td>
+                                    <td>{{ $value->path }}</td>
+                                    <td class="d-flex flex-column">
+                                        <a type="button" class="btn btn-warning btn-sm mb-1" href="/admin/song/edit/{{ $value->id }}">
+                                            Sửa
+                                        </a>
+                                        <a class="btn btn-danger btn-sm removeRow" data-id="{{ $value->id }}" data-url="/admin/song/destroy" href="">
+                                            Xóa
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
                 <div class="card-footer clearfix">
-                    {!! $values->links() !!}
+                    @if (isset($values) && !empty($values))
+                        {!! $values->links() !!}
+                    @endif
                 </div>
             </div>
         </div>

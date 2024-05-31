@@ -13,7 +13,7 @@ class PlaylistService {
                 'name' => $request->input('name'),
                 'user_id' => Auth::id(),
             ]);
-            Session::flash('success', 'Thêm chương thành công');
+            Session::flash('success', 'Thêm playlist thành công');
         } catch (\Exception $e) {
             Session::flash('error', 'Thêm thất bại');
             Log::info($e->getMessage());
@@ -32,7 +32,7 @@ class PlaylistService {
                 'name' => $request->input('name'),
             ]);
             $id->save();
-            Session::flash('success', 'Cập nhật truyện thành công');
+            Session::flash('success', 'Cập nhật playlist thành công');
         } catch (\Exception $e) {
             Session::flash('error', 'Cập nhật thất bại');
             Log::info($e->getMessage());
@@ -48,5 +48,9 @@ class PlaylistService {
             return Playlist::where('id', $id)->delete();
         }
         return false;
+    }
+
+    public function get() {
+        return Playlist::select('id', 'name')->orderBy('id', 'asc')->get();
     }
 }

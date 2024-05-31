@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PlaylistController;
+use App\Http\Controllers\PlaylistSongController;
 use App\Http\Controllers\SongController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,10 +26,7 @@ Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 Route::post('logout', [UserController::class, 'logout'])->name('logout');
 
-Route::get('/songs', [SongController::class, 'index']);
-Route::post('/songs', [SongController::class, 'store']);
-Route::get('/songs/{id}', [SongController::class, 'show']);
-Route::get('/songs/{id}/download', [SongController::class, 'download']);
+Route::post('upload/services', [UploadController::class, 'store']);
 
 Route::middleware(['auth'])->group(function() {
     Route::prefix('admin')->middleware('admin')->group(function() {
@@ -43,22 +44,36 @@ Route::middleware(['auth'])->group(function() {
         });
 
         Route::prefix('song')->group(function() {
-
+            Route::get('add', [SongController::class, 'create']);
+            Route::get('list', [SongController::class, 'index']);
+            Route::get('edit/{id}', [SongController::class, 'show']);
+            Route::post('add', [SongController::class, 'store']);
+            Route::post('edit/{id}', [SongController::class, 'update']);
+            Route::delete('destroy', [SongController::class, 'destroy']);
         });
 
         Route::prefix('playlist_song')->group(function() {
-
+            Route::get('add', [PlaylistSongController::class, 'Create']);
+            Route::get('list', [PlaylistSongController::class, 'index']);
+            Route::get('edit/{id}', [PlaylistSongController::class, 'show']);
+            Route::post('add', [PlaylistSongController::class, 'store']);
+            Route::post('edit/{id}', [PlaylistSongController::class, 'update']);
+            Route::delete('destroy', [PlaylistSongController::class, 'destroy']);
         });
 
-        Route::prefix('dowload')->group(function() {
-
+        Route::prefix('download')->group(function() {
+            Route::get('list', [DownloadController::class, 'index']);
         });
 
         Route::prefix('favorite')->group(function() {
-
+            Route::get('list', [FavoriteController::class, 'index']);
         });
     });
-    Route::get('/', function () {
-        return view('admin.song.add');
-    })->name('welcome');
+
+    Route::get('home', function() {
+        return view('home');
+    })->name('home');
+
+    Route::post('/add-download', [DownloadController::class, 'store']);
+    Route::post('add-favorite', [FavoriteController::class, 'store']);
 });

@@ -30,9 +30,25 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="name" class="form-label ml-3">Tên Playlist</label>
-                                    <input type="text" class="form-control form-control-user"
-                                        name="name"
-                                        placeholder="Nhập tên playlist" value="{{ $value->name }}">
+                                    <select name="playlist_id" class="form-control">
+                                        <option value="0" {{ $value->playlist_id == 0 ? 'selected' : '' }}>Tên Playlist</option>
+                                        @foreach($playlists as $playlist)
+                                            <option value="{{ $playlist->id }}" {{ $value->playlist_id == $playlist->id ? 'selected' : '' }}>
+                                                {{ $playlist->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="form-label ml-3">Tên bài hát</label>
+                                    <select name="song_id" class="form-control">
+                                        <option value="0" {{ $value->song_id == 0 ? 'selected' : '' }}>Tên bài hát</option>
+                                        @foreach($songs as $song)
+                                            <option value="{{ $song->id }}" {{ $value->song_id == $song->id ? 'selected' : '' }}>
+                                                {{ $song->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Lưu

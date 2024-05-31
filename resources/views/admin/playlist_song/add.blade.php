@@ -29,10 +29,22 @@
                             <form class="user" method="post" action="{{ url('admin/playlist_song/add') }}">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="name" class="form-label ml-3">Tên Playlist</label>
-                                    <input type="text" class="form-control form-control-user"
-                                        name="name"
-                                        placeholder="Nhập tên playlist">
+                                    <label for="name" class="form-label ml-3">Tên playlist</label>
+                                    <select name="playlist_id" class="form-control">
+                                        <option value="0">Tên playlist</option>
+                                        @foreach($playlists as $playlist)
+                                            <option value="{{ $playlist->id }}">{{ $playlist->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="form-label ml-3">Tên bài hát</label>
+                                    <select name="song_id" class="form-control">
+                                        <option value="0">Tên bài hát</option>
+                                        @foreach($songs as $song)
+                                            <option value="{{ $song->id }}">{{ $song->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <button class="btn btn-primary btn-user btn-block">
                                     Thêm

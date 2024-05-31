@@ -2,46 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\SongService;
 use App\Models\Song;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class SongController extends Controller
 {
-    public function index()
-    {
-        $songs = Song::all();
-        return view('songs.index', compact('songs'));
+    protected $song;
+
+    public function __construct(SongService $song) {
+        $this->song = $song;
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required',
-            'artist' => 'required',
-            'file' => 'required|mimes:mp3,wav,ogg|max:20480',
-        ]);
+    public function create() {
+        return view('admin/song/add');
+    }
 
-        $path = $request->file('file')->store('songs');
-
-        $song = new Song();
-        $song->title = $request->title;
-        $song->artist = $request->artist;
-        $song->file_path = $path;
-        $song->save();
-
+    public function store(Request $request) {
+        $result = $this->song->insert($request);
+        if ($result) {
+            return redirect('/admin/song/list');
+        }
         return redirect()->back();
     }
 
-    public function show($id)
-    {
-        $song = Song::findOrFail($id);
-        return view('songs.show', compact('song'));
+    public function index() {
+        return view('admin/song/list', [
+            'values' => $this->song->getAll()
+        ]);
     }
 
-    public function download($id)
-    {
-        $song = Song::findOrFail($id);
-        return Storage::download($song->file_path);
+    public function show(Song $id) {
+        return view('admin/song/edit', [
+            'value' => $id
+        ]);
+    }
+
+    public function update(Song $id, Request $request) {
+        $result = $this->song->update($request, $id);
+        if ($result) {
+            return redirect('/admin/song/list');
+        }
+        return redirect()->back();
+    }
+
+    public function destroy(Request $request) {
+        $result = $this->song->destroy($request);
+        if ($result) {
+            return response()->json([
+                'error' => false,
+                'message' => 'Xóa song thành công!'
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Xóa song thất bại!'
+        ]);
     }
 }

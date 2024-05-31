@@ -25,16 +25,16 @@
                     <thead>
                         <tr>
                             <th style="width: 50px">ID</th>
-                            <th>Tên playlist</th>
                             <th>Người dùng</th>
+                            <th>Tên playlist</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($values as $key => $value)
                             <tr>
                                 <td>{{ $value->id }}</td>
-                                <td>{{ $value->name }}</td>
                                 <td>{{ $value->username }}</td>
+                                <td>{{ $value->song_name }}</td>
                             </tr>
                         @endforeach
                     </tbody>

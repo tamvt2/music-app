@@ -10,8 +10,9 @@ class Song extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
+        'name',
         'artist',
+        'url_img',
         'album',
         'genre',
         'path',

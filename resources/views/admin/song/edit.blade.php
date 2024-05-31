@@ -29,10 +29,24 @@
                             <form class="user" method="post" action="">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="name" class="form-label ml-3">Tên Playlist</label>
-                                    <input type="text" class="form-control form-control-user"
-                                        name="name"
-                                        placeholder="Nhập tên playlist" value="{{ $value->name }}">
+                                    <label for="name" class="form-label ml-3">Tên bài hát</label>
+                                    <input type="text" class="form-control form-control-user" name="name" placeholder="Nhập tên bài hát" value="{{ $value->name }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artist" class="form-label ml-3">Nghệ sĩ</label>
+                                    <input type="text" class="form-control form-control-user" name="artist" placeholder="Nhập nghệ sĩ" value="{{ $value->artist }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="album" class="form-label ml-3">Album</label>
+                                    <input type="text" class="form-control form-control-user" name="album" placeholder="Nhập album" value="{{ $value->album }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="genre" class="form-label ml-3">Thể loại</label>
+                                    <input type="text" class="form-control form-control-user" name="genre" placeholder="Nhập thể loại" value="{{ $value->genre }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="path" class="form-label ml-3">Đường dẫn đến file bài hát</label>
+                                    <input type="text" class="form-control form-control-user" name="path" placeholder="Nhập đường dẫn đến file bài hát" value="{{ $value->path }}">
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Lưu

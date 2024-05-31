@@ -41,7 +41,12 @@ class UserController extends Controller
                 'email' => $request->input('email'),
                 'password' => $request->input('password')
             ])) {
-            return redirect()->route('welcome');
+            $user = Auth::user();
+            if ($user->role === 'admin') {
+                return redirect()->route('welcome');
+            } else {
+                return redirect()->route('home');
+            }
         }
         Session::flash('error', 'Email hoặc Password không chính xác');
         return redirect()->back();

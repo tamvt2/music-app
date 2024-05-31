@@ -30,9 +30,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="name" class="form-label ml-3">Tên Playlist</label>
-                                    <input type="text" class="form-control form-control-user"
-                                        name="name"
-                                        placeholder="Nhập tên playlist" value="{{ $value->name }}">
+                                    <input type="text" class="form-control form-control-user" name="name" placeholder="Nhập tên playlist" value="{{ $value->name }}">
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Lưu

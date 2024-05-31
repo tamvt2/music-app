@@ -10,12 +10,45 @@
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style>
+        .table-fixed {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .table-fixed th,
+        .table-fixed td {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .w-5 {
+            width: 50px !important;
+        }
+
+        .w-7 {
+            width: 75px !important;
+        }
+
+        .w-10 {
+            width: 100px !important;
+        }
+
+        .w-15 {
+            width: 150px !important;
+        }
+
+        .w-20 {
+            width: 200px !important;
+        }
+    </style>
 </head>
 <body>
     @yield('content')
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/main.js"></script>
-
     <!-- Bootstrap core JavaScript-->
     <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
