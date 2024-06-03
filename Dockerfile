@@ -27,19 +27,20 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN docker-php-ext-install pdo_mysql
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 # Copy application source
-COPY . /var/www
+COPY . /var/www/html
 
 # Install Composer dependencies
 RUN composer install --no-dev
 
 # Set permissions for storage and cache directories
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/public/storage
+RUN chmod -R 775 /var/www/html/storage /var/www/html/public/storage
 
 # Set execute permission for artisan
-RUN chmod +x /var/www/artisan
+RUN chmod +x /var/www/html/artisan
 
 # Expose port 9000 for PHP-FPM
 EXPOSE 9000
